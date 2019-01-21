@@ -1,0 +1,4 @@
+shiro:
+  loginUrl: /auth/page/401
+  unauthrizedUrl: /auth/page/403
+  successUrl: /auth/page/index
