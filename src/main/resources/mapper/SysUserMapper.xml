@@ -17,7 +17,6 @@
         <collection property="roleList" columnPrefix="role_" resultMap="com.ss.dao.SysRoleMapper.roleMap">
         </collection>
     </resultMap>
-
     <select id="selectUserIncludeRoles" resultMap="userIncludeRolesMap">
         select
           u.*,
