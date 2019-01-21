@@ -12,7 +12,6 @@
         <result property="created"  column="created" jdbcType="TIMESTAMP" />
         <result property="updated"  column="updated" jdbcType="TIMESTAMP" />
     </resultMap>
-
     <!-- 一对多：user、role -->
     <resultMap id="userIncludeRolesMap" extends="userMap" type="com.ss.entity.SysUser">
         <collection property="roleList" columnPrefix="role_" resultMap="com.ss.dao.SysRoleMapper.roleMap">
