@@ -12,7 +12,6 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,12 +61,32 @@ public class AuthController {
             return ResultModel.fail(oper,"登录失败：".concat(ae.getMessage()));
         }
     }
+
+    /**
+     * 获取
+     */
     @PostMapping("info")
     public ResultModel info(){
         String oper = "get user info";
         Subject subject = SecurityUtils.getSubject();
-        SysUser principal = (SysUser) subject.getPrincipal();
+        SysUser user = (SysUser) subject.getPrincipal();
         logger.info("{} sessionId : {}",oper,subject.getSession().getId());
-        return null;
+        return ResultModel.succ(oper)
+                    .data("name",user.getUname())
+                    .data("nick",user.getNick())
+                    .data("roles",user.getRoles())
+                    .data("perms",user.getPerms());
+    }
+
+    /**
+     * 登出的方法
+     * @return
+     */
+    @PostMapping("logout")
+    public ResultModel logout(){
+        String oper = "user logout";
+        logger.info("{}",oper);
+        SecurityUtils.getSubject().logout();
+        return ResultModel.succ(oper);
     }
 }
