@@ -50,35 +50,35 @@ public class ResultModel extends HashMap<String,Object> {
         if(data != null) this.put(KEY_DATA,data);
     }
     /////////////////// 返回操作成功的方法 ///////////////////
-    public ResultModel succ(){
+    public static ResultModel succ(){
         return new ResultModel();
     }
-    public ResultModel succ(String oper){
+    public static ResultModel succ(String oper){
         return new ResultModel(oper,true,DEFAULT_SUCC_CODE,DEFAULT_SUCC_MSG,null);
     }
-    public ResultModel succ(String oper , String msg){
+    public static ResultModel succ(String oper , String msg){
         return new ResultModel(oper,true,DEFAULT_SUCC_CODE,msg,null);
     }
-    public ResultModel succ(String oper,Object data){
+    public static ResultModel succ(String oper,Object data){
         return new ResultModel(oper,true,DEFAULT_SUCC_CODE,DEFAULT_SUCC_MSG,data);
     }
-    public ResultModel succ(String oper,String dataKey,Object dataVal){
+    public static ResultModel succ(String oper,String dataKey,Object dataVal){
         return new ResultModel(oper,true,DEFAULT_SUCC_CODE,DEFAULT_SUCC_MSG,null).data(dataKey,dataVal);
     }
     /////////////////// 返回操作失败的方法 ///////////////////
-    public ResultModel fail(){
+    public static ResultModel fail(){
         return new ResultModel(DEFAULT_OPER_VAL,false,DEFAULT_FAIL_CODE,DEFAULT_FAIL_MSG,null);
     }
-    public ResultModel fail(String oper){
+    public static ResultModel fail(String oper){
         return new ResultModel(oper,false,DEFAULT_FAIL_CODE,DEFAULT_FAIL_MSG,null);
     }
-    public ResultModel fail(String oper,String msg){
+    public static ResultModel fail(String oper,String msg){
         return new ResultModel(oper,false,DEFAULT_FAIL_CODE,msg,null);
     }
-    public ResultModel faile(String oper,Object data){
+    public static ResultModel faile(String oper,Object data){
         return new ResultModel(oper,false,DEFAULT_FAIL_CODE,DEFAULT_FAIL_MSG,data);
     }
-    public ResultModel failt(String oper,String dataKey,Object dataValue){
+    public static ResultModel failt(String oper,String dataKey,Object dataValue){
         return new ResultModel(oper,false,DEFAULT_FAIL_CODE,DEFAULT_FAIL_MSG,null).data(dataKey,dataValue);
     }
     /**

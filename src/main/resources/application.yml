@@ -5,11 +5,11 @@ server:
     context-path: auth
     session:
       cookie:
-        name: SSCRM # jsessionidµÄÃû×Ö£¨key£©
+        name: SSCRM # jsessionidçš„åå­—ï¼ˆkeyï¼‰
 spring:
   profiles:
-    active: dev # ßx“ñµÄ­h¾³£¬›]ÓĞÒ²ÄÜÕı³£†™„Ó¡£ÕhÃ÷:spring.profiles.active=hello-world,sender,dev ÓĞÈı¸ö²ÎÊı£¬ÆäÖĞ application-dev.properties ÅäÖÃÎÄ¼şÔÚresourcesÄ¿ä›ÏÂ´æÔÚ£¬appÆô¶¯Ê±£¬ÏîÄ¿»áÏÈ´Óapplication-dev.properties¼ÓÔØÅäÖÃ£¬ÔÙ´Óapplication.propertiesÅäÖÃÎÄ¼ş¼ÓÔØÅäÖÃ£¬Èç¹ûÓĞÖØ¸´µÄÅäÖÃ£¬Ôò»áÒÔapplication.propertiesµÄÅäÖÃÎª×¼
-    include: druid,mybatisplus,shiro # ¼Óİdapplication.yml ºóÍ¬•r¼Óİdapplication-druid.yml,application-mybatisplus.yml,application-shiro.yml
+    active: dev # é¸æ“‡çš„ç’°å¢ƒï¼Œæ²’æœ‰ä¹Ÿèƒ½æ­£å¸¸å•“å‹•ã€‚èª¬æ˜:spring.profiles.active=hello-world,sender,dev æœ‰ä¸‰ä¸ªå‚æ•°ï¼Œå…¶ä¸­ application-dev.properties é…ç½®æ–‡ä»¶åœ¨resourcesç›®éŒ„ä¸‹å­˜åœ¨ï¼Œappå¯åŠ¨æ—¶ï¼Œé¡¹ç›®ä¼šå…ˆä»application-dev.propertiesåŠ è½½é…ç½®ï¼Œå†ä»application.propertiesé…ç½®æ–‡ä»¶åŠ è½½é…ç½®ï¼Œå¦‚æœæœ‰é‡å¤çš„é…ç½®ï¼Œåˆ™ä¼šä»¥application.propertiesçš„é…ç½®ä¸ºå‡†
+    include: druid,mybatisplus,shiro # åŠ è¼‰application.yml ååŒæ™‚åŠ è¼‰application-druid.yml,application-mybatisplus.yml,application-shiro.yml
   thymeleaf:
     cache: false
   datasource:
