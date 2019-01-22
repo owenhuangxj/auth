@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ss.dao.SysRoleMapper">
+
+    <resultMap id="roleMap" type="com.ss.entity.SysRole">
+        <id property="rid" column="rid"/>
+        <result property="rname"  column="rname" />
+        <result property="rdesc"  column="rdesc" />
+        <result property="rval"  column="rval" />
+        <result property="created"  column="created" jdbcType="TIMESTAMP" />
+        <result property="updated"  column="updated" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <!-- 一对多：user、role -->
+    <select id="getRolesByUid" resultType="com.ss.model.AuthModel">
+        select r.rname as name,r.rval as val
+        from sys_role r,sys_user_role ur
+        where r.rid = ur.rid
+        and ur.uid = #{uid}
+    </select>
+
+</mapper>

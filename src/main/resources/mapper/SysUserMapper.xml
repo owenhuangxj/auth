@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ss.dao.SysUserMapper">
+<mapper namespace="com.ss.dao.SysUserMapper" >
 
     <resultMap id="userMap" type="com.ss.entity.SysUser">
         <id property="uid" column="uid"/>
@@ -12,14 +12,21 @@
         <result property="created"  column="created" jdbcType="TIMESTAMP" />
         <result property="updated"  column="updated" jdbcType="TIMESTAMP" />
     </resultMap>
-    <!-- 一对多：user、role -->
-    <resultMap id="userIncludeRolesMap" extends="userMap" type="com.ss.entity.SysUser">
-        <collection property="roleList" columnPrefix="role_" resultMap="com.ss.dao.SysRoleMapper.roleMap">
-        </collection>
+    <sql id="userColumns">
+        u.uid,u.uname,u.nick,u.pwd,u.salt,u.locked,u.created,u.updated
+    </sql>
+    <sql id="roleColumns"> r.rid,r.rname,r.rval,r.created,r.updated</sql>
+    <!-- user 一对多 role extends 属性指明需要执行的resultMap -->
+    <resultMap id="userRolesMap" extends="userMap" type="com.ss.entity.SysUser">
+        <collection property="roleList" resultMap="com.ss.dao.SysRoleMapper.roleMap"/>
+        <!-- com.ss.dao.SysRoleMapper 是SysRoleMapper.xml中的namespace属性值-->
+        <!-- columnPrefix指明 select 获取到的属性需要去掉的前缀部分，如这里的role_-->
+        <!--<collection property="roleList" columnPrefix="role_" resultMap="com.ss.dao.SysRoleMapper.roleMap"/>-->
     </resultMap>
-    <select id="selectUserIncludeRoles" resultMap="userIncludeRolesMap">
+
+    <!--<select id="getUserRoles" resultMap="userRolesMap">
         select
-          u.*,
+          u.*
           r.rid as role_rid,
           r.rname as role_rname,
           r.rdesc as role_rdesc,
@@ -35,6 +42,5 @@
             </if>
         </where>
         order by u.uid
-    </select>
-
+    </select>-->
 </mapper>
