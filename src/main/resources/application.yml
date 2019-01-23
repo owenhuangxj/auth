@@ -2,7 +2,7 @@ db: crm
 server:
   port: 80
   servlet:
-    context-path: auth
+    context-path: /auth
     session:
       cookie:
         name: SSCRM # jsessionid的名字（key）

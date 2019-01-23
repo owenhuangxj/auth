@@ -2,7 +2,9 @@ package com.ss.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ss.entity.SysUser;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface SysUserMapper extends BaseMapper<SysUser> {
-    SysUser getUserRoles();
+//    SysUser getUserRoles();
 }
