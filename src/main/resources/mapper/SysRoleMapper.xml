@@ -14,8 +14,7 @@
     <select id="getRolesByUid" resultType="com.ss.model.AuthModel">
         select r.rname as name,r.rval as val
         from sys_role r,sys_user_role ur
-        where r.rid = ur.rid
-        and ur.uid = #{uid}
+        where r.rid = ur.role_id
+        and ur.user_id = #{uid}
     </select>
-
 </mapper>

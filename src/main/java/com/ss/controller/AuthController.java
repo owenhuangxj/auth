@@ -28,8 +28,10 @@ public class AuthController {
         JSONObject json = JSONObject.parseObject(body);
         String uname = json.getString("uname");
         String pwd = json.getString("pwd");
+        logger.info("uname : {} pwd : {}" ,uname,pwd);
         if (StringUtils.isEmpty(uname)) return ResultModel.fail(oper, "用户名不能为空");
         if (StringUtils.isEmpty(pwd)) return ResultModel.fail(oper, "密码不能为空");
+
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(new UsernamePasswordToken(uname, pwd));

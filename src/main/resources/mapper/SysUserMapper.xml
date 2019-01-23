@@ -7,13 +7,14 @@
         <result property="uname"  column="uname" />
         <result property="nick"  column="nick" />
         <result property="pwd"  column="pwd" />
+        <result property="email" column="email"/>
         <result property="salt"  column="salt" />
         <result property="locked"  column="locked" />
         <result property="created"  column="created" jdbcType="TIMESTAMP" />
         <result property="updated"  column="updated" jdbcType="TIMESTAMP" />
     </resultMap>
     <sql id="userColumns">
-        u.uid,u.uname,u.nick,u.pwd,u.salt,u.locked,u.created,u.updated
+        u.uid,u.uname,u.nick,u.pwd,u.salt,u.locked,u.created,u.updated,u.email
     </sql>
     <sql id="roleColumns"> r.rid,r.rname,r.rval,r.created,r.updated</sql>
     <!-- user 一对多 role extends 属性指明需要执行的resultMap -->

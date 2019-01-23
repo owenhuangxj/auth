@@ -2,7 +2,7 @@ db: crm
 server:
   port: 80
   servlet:
-    context-path: /auth
+#    context-path: /auth
     session:
       cookie:
         name: SSCRM # jsessionid的名字（key）
@@ -17,3 +17,5 @@ spring:
     url: jdbc:mysql://129.204.70.43:3306/${db}?useUnicode=true&characterEncoding=UTF-8&userSSL=false&tinyIntlisBit=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
     username: crm_group23
     password: Group23@2019
+logging:
+  config: classpath:log4j2.xml

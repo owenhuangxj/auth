@@ -6,7 +6,7 @@
     <select id="getPermsByUid" resultType="com.ss.model.AuthModel">
       select p.pval as val,p.pname as `name`
       from sys_perm p,sys_user_role ur,sys_role_perm rp
-      where ur.uid = #{uid} and ur.rid = rp.rid and rp.perm_val = p.pval
+      where ur.user_id = #{uid} and ur.role_id = rp.role_id and rp.perm_val = p.pval
     </select>
 
 </mapper>

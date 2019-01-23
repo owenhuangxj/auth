@@ -51,6 +51,7 @@ public class UserRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+		System.out.println("======================== doGetAuthenticationInfo ========================");
 		UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
 		String uname = token.getUsername();
 		if(uname == null) throw new AccountException("用户名不能为空"); // 防止通过api进行登录而非前端页面的登录
@@ -74,6 +75,7 @@ public class UserRealm extends AuthorizingRealm {
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+		System.out.println("======================== doGetAuthorizationInfo ========================");
 		SysUser user = (SysUser) getAvailablePrincipal(principalCollection);
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		Set<AuthModel> roles = user.getRoles();

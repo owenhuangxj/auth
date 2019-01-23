@@ -1,4 +1,5 @@
 package com.ss.entity;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.ss.model.AuthModel;
@@ -23,8 +24,12 @@ public class SysUser extends Model<SysUser> {
 	private String locked;	// 是否已经锁定
 	private Date created;	// 用户创建时间
 	private Date updated;	// 用户信息更新时间
+	private String email;	// 注册用的邮箱
+	@TableField(exist = false)
 	private List<SysRole> roleList = new ArrayList<>();	// 用户所有角色值，在管理后台显示用户的角色
+	@TableField(exist = false)
 	private Set<AuthModel> roles = new HashSet<>();		// 用户所有角色值，用于shiro做校色权限的判断
+	@TableField(exist = false)
 	private Set<AuthModel> perms = new HashSet<>();		// 用户所有权限值，用户shiro做资源权限的判断
 
 }
