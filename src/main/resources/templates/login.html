@@ -14,8 +14,19 @@
     </form>
 </body>
 <!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+<script type="text/javascript" src="resources/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-
-
+    $(":button").click(function () {
+       fetch("/auth/login",{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+           body:JSON.stringify({
+               uname:   $(":text").val(),
+               pwd:     $(":password").val()
+           })
+       }).then(response=>alert(response))
+    });
 </script>
 </html>
