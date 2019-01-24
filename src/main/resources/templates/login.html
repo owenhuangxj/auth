@@ -1,35 +1,53 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">-->
+<!--<head>-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title>登陸頁面</title>-->
+<!--</head>-->
+<!--<body>-->
+    <!--<form th:action="@{auth/login}" method="post">-->
+        <!--<input type="text" value="owen"/>-->
+        <!--<br/>-->
+        <!--<input type="password"  value="huangsir" />-->
+        <!--<br/>-->
+        <!--<input type="button"  value="登录"/>-->
+    <!--</form>-->
+<!--</body>-->
+<!--&lt;!&ndash;<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>&ndash;&gt;-->
+<!--<script type="text/javascript" src="resources/js/jquery-3.3.1.min.js"></script>-->
+<!--<script type="text/javascript">-->
+    <!--$(":button").click(function () {-->
+       <!--fetch("auth/login",{-->
+            <!--method:'POST',-->
+            <!--headers:{-->
+                <!--'Content-Type':'application/json'-->
+            <!--},-->
+           <!--body:JSON.stringify({-->
+               <!--uname:   $(":text").val(),-->
+               <!--pwd:     $(":password").val()-->
+           <!--})-->
+       <!--}).then(response=>response.json())-->
+           <!--.then(data=>{-->
+           <!--console.log(data)-->
+            <!--window.location.href = "auth/index"-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->
+<!--</html>-->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>登陸頁面</title>
 </head>
 <body>
-    <form th:action="@{auth/login}" method="post">
-        <input type="text" value="owen"/>
-        <br/>
-        <input type="password"  value="huangsir" />
-        <br/>
-        <input type="button"  value="登录"/>
-    </form>
+<form action="auth/login" method="post">
+    <input type="text" name="uname" value="owen"/>
+    <br/>
+    <input type="password" name="pwd" value="huangsir" />
+    <br/>
+    <input type="submit"  value="登录"/>
+    <input type="checkbox" name="rememberMe" value="true"/>Remember Me?
+</form>
 </body>
-<!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
-<script type="text/javascript" src="resources/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript">
-    $(":button").click(function () {
-       fetch("auth/login",{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-           body:JSON.stringify({
-               uname:   $(":text").val(),
-               pwd:     $(":password").val()
-           })
-       }).then(response=>response.json())
-           .then(data=>{
-           console.log(data)
-        });
-    });
-</script>
 </html>

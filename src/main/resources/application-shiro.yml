@@ -1,4 +1,4 @@
 shiro:
-  loginUrl: /auth/page/401
-  unauthrizedUrl: /auth/page/403
-  successUrl: /auth/page/index
+  loginUrl: /page/401 # 查找url映射地址为 /page/401的handler ShiroFilterFactoryBean.setLoginUrl（url）后此处失效
+  unauthrizedUrl: /page/403
+  successUrl: /page/index

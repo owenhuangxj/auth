@@ -6,10 +6,11 @@ server:
     session:
       cookie:
         name: SSCRM # jsessionid的名字（key）
+        max-age: 1000s
 spring:
   profiles:
     active: dev # 選擇的環境，沒有也能正常啓動。説明:spring.profiles.active=hello-world,sender,dev 有三个参数，其中 application-dev.properties 配置文件在resources目錄下存在，app启动时，项目会先从application-dev.properties加载配置，再从application.properties配置文件加载配置，如果有重复的配置，则会以application.properties的配置为准
-    include: druid,mybatisplus,shiro # 加載application.yml 后同時加載application-druid.yml,application-mybatisplus.yml,application-shiro.yml
+    include: druid,mybatisplus # 加載application.yml 后同時加載application-druid.yml,application-mybatisplus.yml,application-shiro.yml
   thymeleaf:
     cache: false
   datasource:
@@ -17,5 +18,8 @@ spring:
     url: jdbc:mysql://129.204.70.43:3306/${db}?useUnicode=true&characterEncoding=UTF-8&userSSL=false&tinyIntlisBit=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
     username: crm_group23
     password: Group23@2019
+  devtools:
+    restart:
+      enabled: true
 logging:
   config: classpath:log4j2.xml

@@ -15,6 +15,8 @@ import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Set;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
  * Realm 領域，與數據庫進行交互，定义了如何查询用户信息，如何查询用户的角色和权限，如何校验密码等逻辑
  */
 public class UserRealm extends AuthorizingRealm {
+	private static final Logger logger = LoggerFactory.getLogger(AuthorizingRealm.class);
 	@Autowired
 	private SysUserService userService;
 	@Autowired
@@ -36,13 +39,13 @@ public class UserRealm extends AuthorizingRealm {
 	 */
 	@Override
 	public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
+		//设置用于匹配密码的CredentialsMatcher
 		HashedCredentialsMatcher hashMatcher = new HashedCredentialsMatcher();
-		hashMatcher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME); //SHA-256
+		hashMatcher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
 		hashMatcher.setStoredCredentialsHexEncoded(false);
 		hashMatcher.setHashIterations(1024);
 		super.setCredentialsMatcher(hashMatcher);
 	}
-
 	/**
 	 * shiro会调用该方法来鉴权
 	 * @param authenticationToken
@@ -51,7 +54,6 @@ public class UserRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-		System.out.println("======================== doGetAuthenticationInfo ========================");
 		UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
 		String uname = token.getUsername();
 		if(uname == null) throw new AccountException("用户名不能为空"); // 防止通过api进行登录而非前端页面的登录
@@ -61,21 +63,21 @@ public class UserRealm extends AuthorizingRealm {
 		Set<AuthModel> perms = permService.getPermsByUid(user.getUid());
 		user.getRoles().addAll(roles);
 		user.getPerms().addAll(perms);
+
 		/**
 		 * 此处是将用户的相关信息通过AuthenticationInfo接口进行保存，以便其它地方可以进行获取，比如doGetAuthorizationInfo方法中
 		 * 在任何地方通过SecurityUtils.getSubject().getPrincipal()都能拿出用户的所有信息，包括角色和权限
 		 * 此处的SimpleAuthenticationInfo(Object principal, Object credentials, String realmName)的第一个参数传入的是SysUser,
 		 * 第二个是 SysUser 的password
+		 * getName() ==> com.ss.config.UserRealm_0
  		 */
-		System.out.println("========================== ".concat(getName()).concat(" =========================="));
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user,user.getPwd(),getName());
-		authenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(user.getSalt()));
+		if(user.getSalt() != null)authenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(user.getSalt()));
 		return authenticationInfo;
 	}
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-		System.out.println("======================== doGetAuthorizationInfo ========================");
 		SysUser user = (SysUser) getAvailablePrincipal(principalCollection);
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		Set<AuthModel> roles = user.getRoles();

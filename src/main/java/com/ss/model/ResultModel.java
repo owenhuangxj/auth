@@ -1,7 +1,5 @@
 package com.ss.model;
 
-import org.apache.ibatis.annotations.ResultMap;
-
 import java.util.HashMap;
 
 public class ResultModel extends HashMap<String,Object> {

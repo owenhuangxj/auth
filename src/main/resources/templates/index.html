@@ -5,9 +5,20 @@
     <title>index</title>
 </head>
 <body>
-<h2 shiro:hasRole="root">root权限可以看到</h2>
+<!-- 配置了ShiroDialect shiro标签才有用 -->
+<p shiro:hasRole="manager">manager权限可以看到</p>
+<p shiro:hasRole="root">root权限可以看到</p>
+<input shiro:hasAnyRoles="manager,root" type="button" value="获取信息"/>
+<br/>
+userInfo : <shiro:principal/>
+<br/>
 </body>
+<script type="text/javascript" src="resources/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-
+    $(function () {
+        $(":button").on('click',function () {
+            fetch('/auth/info').then(response=>response.json()).then(data=>console.log(data));
+        })
+    })
 </script>
 </html>
