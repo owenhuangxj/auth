@@ -1,12 +1,12 @@
 db: crm
 server:
   port: 80
-  servlet:
+#  servlet:
 #    context-path: /auth
-    session:
-      cookie:
-        name: SSCRM # jsessionid的名字（key）
-        max-age: 1000s
+#    session:
+#      cookie:
+#        name: SSCRM # jsessionid的名字（key）
+#        max-age: 3600s
 spring:
   profiles:
     active: dev # 選擇的環境，沒有也能正常啓動。説明:spring.profiles.active=hello-world,sender,dev 有三个参数，其中 application-dev.properties 配置文件在resources目錄下存在，app启动时，项目会先从application-dev.properties加载配置，再从application.properties配置文件加载配置，如果有重复的配置，则会以application.properties的配置为准

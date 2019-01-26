@@ -2,10 +2,8 @@ package com.ss.config;
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
-import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
-import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
@@ -21,11 +19,14 @@ public class ShiroConfig {
 		return new UserRealm();
 	}
 	@Bean
-    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator(){
-	    DefaultAdvisorAutoProxyCreator creator = new DefaultAdvisorAutoProxyCreator();
-	    creator.setUsePrefix(true);
-	    return creator;
-    }
+	public static DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
+		DefaultAdvisorAutoProxyCreator creator = new DefaultAdvisorAutoProxyCreator();
+		/**
+		 * 用于解决无法识别@RequiresPermissons和@RequiresRoles注解
+		 */
+		creator.setProxyTargetClass(true);
+		return creator;
+	}
 	// http://shiro.apache.org/web.html#default-filters
 //	@Bean
 //	public ShiroFilterChainDefinition shrioFilter(){
@@ -38,7 +39,18 @@ public class ShiroConfig {
 //		filterChain.addPathDefinition("/**","authc");
 //		return filterChain;
 //	}
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(){
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
+        return authorizationAttributeSourceAdvisor;
+    }
 
+    /**
+     *  ShiroFilterFactoryBean 用于配置Shiro的Filter，Shiro的Filter用来规定权限认证的规则
+     * @param securityManager
+     * @return
+     */
 	@Bean
 	public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -51,6 +63,10 @@ public class ShiroConfig {
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 		//auth路径下的所有请求都不需要身份验证
 		filterChainDefinitionMap.put("/auth/**", "anon");
+		//
+//		filterChainDefinitionMap.put("/manager/**","roles[root]");
+//		filterChainDefinitionMap.put("/user/**","roles[user]");
+
 		//其余接口一律拦截,这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截
 		filterChainDefinitionMap.put("/**", "authc");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

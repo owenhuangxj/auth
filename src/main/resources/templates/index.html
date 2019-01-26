@@ -16,8 +16,18 @@ userInfo : <shiro:principal/>
 <script type="text/javascript" src="resources/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
     $(function () {
+        /*$(":button").on('click',function () {
+            fetch('/manager/info').then(response=>response.json()).then(data=>console.log(data));
+        })*/
         $(":button").on('click',function () {
-            fetch('/auth/info').then(response=>response.json()).then(data=>console.log(data));
+            $.ajax({
+                url:'/manager/info',
+                contentType:'json',
+                method : 'get',
+                success:function (result) {
+                    console.log(result);
+                }
+            })
         })
     })
 </script>

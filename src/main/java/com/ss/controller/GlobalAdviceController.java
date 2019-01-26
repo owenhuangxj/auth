@@ -8,6 +8,7 @@ import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.PermissionDeniedDataAccessException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,5 +42,10 @@ public class GlobalAdviceController {
 	@ExceptionHandler(UnauthorizedException.class)
 	public ResultModel page403(UnauthorizedException ex){
 		return new ResultModel("unauthorized",false,Codes.UNAUTHZ,"用户未登陆",null);
+	}
+	@ResponseBody
+	@ExceptionHandler(PermissionDeniedDataAccessException.class)
+	public ResultModel lackPermission(PermissionDeniedDataAccessException ex){
+		return new ResultModel("lack permission",false,Codes.UNAUTHZ,"无权访问",null);
 	}
 }
